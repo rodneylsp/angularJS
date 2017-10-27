@@ -2,7 +2,7 @@
  *
  */
 
-angular.module("agendaApp").controller("agendaController", function ($scope, $http){
+angular.module("agendaApp").controller("agendaController", function ($scope, agendaAPI){
 
 	$scope.contato = undefined;
 
@@ -19,9 +19,8 @@ angular.module("agendaApp").controller("agendaController", function ($scope, $ht
 
 
 	var carregarContatos = function(){
-		url = "http://localhost:8080/contatos/contatos";
 
-		$http.get(url)
+		agendaAPI.getContatos()
 			.then(function(response){
 				$scope.contatos = response.data;
 			}, function(response){
@@ -32,9 +31,16 @@ angular.module("agendaApp").controller("agendaController", function ($scope, $ht
 
 
 	$scope.adicionarContato = function(contato){
-		$scope.contatos.push(angular.copy(contato));
-		delete $scope.contato;
-		$scope.contatoForm.$setPristine();
+
+		contato.data = new Date();
+		agendaAPI.saveContato(contato)
+		.then(function(response){
+			delete $scope.contato;
+			$scope.contatoForm.$setPristine();
+			carregarContatos();
+		}, function(response){
+			alert("Erro ao inserir contato.");
+		});
 	};
 
 	$scope.apagarContato = function(contatos){
