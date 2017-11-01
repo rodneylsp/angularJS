@@ -1,15 +1,15 @@
 /**
- *
+ * Exemplo de serviço criado com factory.
  */
 
-angular.module("agendaApp").factory("agendaAPI", function($http){
+angular.module("agendaApp").factory("agendaAPI", function($http, config){
 
   var _getContatos = function (){
-    return $http.get("http://localhost:8080/contatos/contatos");
+    return $http.get(config.baseUrl + "/contatos");
   };
 
   var _saveContato = function (contato){
-      return $http.post("http://localhost:8080/contatos/contatos", contato);
+      return $http.post(config.baseUrl + "/contatos", contato);
   };
 
   return {

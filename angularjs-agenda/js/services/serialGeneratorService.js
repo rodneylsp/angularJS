@@ -1,0 +1,30 @@
+/*
+* Exemplo de provider
+* Neste exemplo tenho um gerador de serial com o tamanho do serial podendo ser configurado
+*/
+
+angular.module("agendaApp").provider("serialGenerator", function(){
+
+  var _length = 5;
+
+  this.getLength = function(){
+    return _length;
+  };
+
+  this.setLength = function(length){
+    _length = length;
+  };
+
+  this.$get = function(){
+    return{
+      generate: function(){
+
+        var serial = "";
+        while(serial.length < _length) {
+          serial += String.fromCharCode(Math.floor(Math.random() * 64) + 32);
+        }
+        return serial;
+      }
+    };
+  };
+});

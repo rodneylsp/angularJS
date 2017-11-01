@@ -16,8 +16,12 @@
 
 <!--CSS e JS do projeto-->
 <script src="./js/app.js"></script>
+<script src="./js/value/configValue.js"></script>
 <script src="./js/controllers/agendaController.js"></script>
 <script src="./js/services/agendaAPIService.js"></script>
+<script src="./js/services/operadoraAPIService.js"></script>
+<script src="./js/services/serialGeneratorService.js"></script>
+<script src="./js/config/serialGeneratorConfig.js"></script>
 <link rel="stylesheet" href="./css/agenda.css"/>
 
 <title>Agenda</title>
@@ -33,6 +37,7 @@
 		<table class="table">
 			<tr>
 				<th></th>
+				<th>Serial</th>
 				<th><a href="" ng-click="ordernarPor('nome')">Nome</th>
 				<th>Telefone</th>
 				<th>Operadora</th>
@@ -41,6 +46,7 @@
 			</tr>
 			<tr ng-class="{'selecionado negrito':contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: busca} | orderBy:ordenacao:direcaoDaOrdenacao">
 				<td><input type="checkbox" ng-model="contato.selecionado" /></td>
+				<td>{{contato.serial}}</td>
 				<td>{{contato.nome}}</td>
 				<td>{{contato.telefone}}</td>
 				<td>{{contato.operadora.nome | lowercase}}</td>
